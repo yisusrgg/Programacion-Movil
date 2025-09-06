@@ -57,6 +57,9 @@ import androidx.compose.ui.text.input.ImeAction
 import kotlin.math.ceil
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.annotation.DrawableRes
+import androidx.compose.material3.Icon
+import androidx.compose.ui.res.painterResource
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -101,6 +104,7 @@ fun TipTimeLayout() {
 
         EditNumberField(
             label = R.string.bill_amount,
+            leadingIcon = R.drawable.money,
             value = amountInput,
             onValueChanged = { amountInput = it },
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -114,6 +118,7 @@ fun TipTimeLayout() {
 
         EditNumberField(
             label = R.string.how_was_the_service,
+            leadingIcon = R.drawable.percent,
             value = tipInput,
             onValueChanged = { tipInput = it },
             keyboardOptions = KeyboardOptions.Default.copy(
@@ -122,7 +127,7 @@ fun TipTimeLayout() {
             ),
             modifier = Modifier
                 .padding(bottom = 32.dp)
-                .fillMaxWidth()
+                .fillMaxWidth(),
         )
 
         RoundTheTipRow(
@@ -142,13 +147,15 @@ fun TipTimeLayout() {
 @Composable
 fun EditNumberField(
     @StringRes label: Int,
+    @DrawableRes leadingIcon: Int,
+    keyboardOptions: KeyboardOptions,
     value: String,
     onValueChanged: (String) -> Unit,
-    keyboardOptions: KeyboardOptions,
     modifier: Modifier = Modifier
-) {
+)  {
     TextField(
         value = value,
+        leadingIcon = { Icon(painter = painterResource(id = leadingIcon), null) },
         onValueChange = onValueChanged,
         singleLine = true,
         label = { Text(stringResource(label)) },
