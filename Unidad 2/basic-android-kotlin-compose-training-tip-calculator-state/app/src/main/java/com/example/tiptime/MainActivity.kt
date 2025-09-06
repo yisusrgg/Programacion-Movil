@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import com.example.tiptime.ui.theme.TipTimeTheme
 import java.text.NumberFormat
 import androidx.annotation.StringRes
+import androidx.compose.ui.text.input.ImeAction
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,25 +88,33 @@ fun TipTimeLayout() {
                 .padding(bottom = 16.dp)
                 .align(Alignment.Start)
         )
-        // Campo para el importe de la factura
+
         EditNumberField(
             label = R.string.bill_amount,
             value = amountInput,
             onValueChanged = { amountInput = it },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = androidx.compose.ui.text.input.KeyboardType.Number,
+                imeAction = ImeAction.Next
+            ),
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
         )
-        // Campo para el porcentaje de propina
+
         EditNumberField(
             label = R.string.how_was_the_service,
             value = tipInput,
             onValueChanged = { tipInput = it },
+            keyboardOptions = KeyboardOptions.Default.copy(
+                keyboardType = androidx.compose.ui.text.input.KeyboardType.Number,
+                imeAction = ImeAction.Done
+            ),
             modifier = Modifier
                 .padding(bottom = 32.dp)
                 .fillMaxWidth()
         )
-        // Resultado de la propina
+
         Text(
             text = stringResource(R.string.tip_amount, tip),
             style = MaterialTheme.typography.displaySmall
@@ -119,6 +128,7 @@ fun EditNumberField(
     @StringRes label: Int,
     value: String,
     onValueChanged: (String) -> Unit,
+    keyboardOptions: KeyboardOptions,
     modifier: Modifier = Modifier
 ) {
     TextField(
@@ -126,6 +136,7 @@ fun EditNumberField(
         onValueChange = onValueChanged,
         singleLine = true,
         label = { Text(stringResource(label)) },
+        keyboardOptions = keyboardOptions,
         modifier = modifier
     )
 }
