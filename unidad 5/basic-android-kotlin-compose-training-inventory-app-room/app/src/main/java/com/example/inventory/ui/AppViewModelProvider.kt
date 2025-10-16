@@ -33,10 +33,6 @@ import com.example.inventory.ui.item.ItemEntryViewModel
  */
 object AppViewModelProvider {
     val Factory = viewModelFactory {
-
-        initializer {
-            HomeViewModel(inventoryApplication().container.itemsRepository)
-        }
         // Initializer for ItemEditViewModel
         initializer {
             ItemEditViewModel(
@@ -57,7 +53,7 @@ object AppViewModelProvider {
 
         // Initializer for HomeViewModel
         initializer {
-            HomeViewModel()
+            HomeViewModel(inventoryApplication().container.itemsRepository)
         }
     }
 }

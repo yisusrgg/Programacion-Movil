@@ -27,8 +27,6 @@ interface ItemsRepository {
     /**
      * Retrieve all the items from the the given data source.
      */
-    val homeUiState: StateFlow<HomeUiState> =
-        itemsRepository.getAllItemsStream()
 
     fun getAllItemsStream(): Flow<List<Item>>
 
